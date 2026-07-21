@@ -5,8 +5,8 @@
   --line: #323232;
   --text: #e5e7eb;
   --muted: #9ca3af;
-  --gold: #ffbc06;
-  --gold-soft: rgba(255, 188, 6, 0.12);
+  --blue: #2589ff;
+  --blue-soft: rgba(37, 137, 255, 0.14);
   --success: #22c55e;
   --danger: #ef4444;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
@@ -21,7 +21,7 @@ body {
   margin: 0;
   min-height: 100%;
   background:
-    linear-gradient(135deg, rgba(255, 188, 6, 0.07), transparent 32%),
+    linear-gradient(135deg, rgba(37, 137, 255, 0.09), transparent 32%),
     linear-gradient(160deg, #111111, var(--bg) 45%, #101010);
   color: var(--text);
   font-family: Inter, "Segoe UI", Arial, sans-serif;
@@ -54,10 +54,10 @@ button {
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: var(--gold);
+  background: var(--blue);
   color: #111111;
   font-weight: 900;
-  box-shadow: 0 12px 28px rgba(255, 188, 6, 0.25);
+  box-shadow: 0 12px 28px rgba(37, 137, 255, 0.28);
 }
 
 .combo-icon {
@@ -69,7 +69,7 @@ button {
 
 .eyebrow {
   margin: 0 0 6px;
-  color: var(--gold);
+  color: var(--blue);
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -132,7 +132,7 @@ h3 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(255, 188, 6, 0.08), transparent 55%);
+  background: linear-gradient(90deg, rgba(37, 137, 255, 0.1), transparent 55%);
   pointer-events: none;
 }
 
@@ -157,7 +157,7 @@ h3 {
 .price-callout strong {
   display: block;
   margin-top: 4px;
-  color: var(--gold);
+  color: var(--blue);
   font-size: 1.85rem;
 }
 
@@ -225,7 +225,7 @@ h3 {
 }
 
 .plan-card:hover {
-  border-color: rgba(255, 188, 6, 0.55);
+  border-color: rgba(37, 137, 255, 0.6);
   transform: translateY(-2px);
 }
 
@@ -242,17 +242,17 @@ h3 {
   align-items: center;
   min-height: 28px;
   padding: 5px 10px;
-  border: 1px solid rgba(255, 188, 6, 0.28);
+  border: 1px solid rgba(37, 137, 255, 0.32);
   border-radius: 999px;
-  background: var(--gold-soft);
-  color: var(--gold);
+  background: var(--blue-soft);
+  color: var(--blue);
   font-size: 0.78rem;
   font-weight: 800;
 }
 
 .plan-price {
   margin-top: 14px;
-  color: var(--gold);
+  color: var(--blue);
   font-size: 2rem;
   font-weight: 900;
 }
@@ -274,15 +274,15 @@ h3 {
 .primary-button {
   width: 100%;
   margin-top: auto;
-  background: linear-gradient(90deg, var(--gold), #f9e561);
-  color: #111111;
+  background: linear-gradient(90deg, var(--blue), #7cc2ff);
+  color: #ffffff;
 }
 
 .secondary-button {
   padding: 0 18px;
-  border: 1px solid rgba(255, 188, 6, 0.28);
-  background: var(--gold-soft);
-  color: var(--gold);
+  border: 1px solid rgba(37, 137, 255, 0.32);
+  background: var(--blue-soft);
+  color: var(--blue);
 }
 
 .receipt-link {
@@ -308,7 +308,7 @@ h3 {
 }
 
 .included-grid span {
-  color: var(--gold);
+  color: var(--blue);
   font-size: 0.82rem;
   font-weight: 900;
 }

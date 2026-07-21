@@ -62,7 +62,7 @@ async function checkout(planId) {
     description: `${payload.plan.name} combo (${payload.plan.rp} RP)`,
     order_id: payload.order_id,
     theme: {
-      color: "#ffbc06",
+      color: "#2589ff",
     },
     handler: async function (responseData) {
       const verifyResponse = await fetch("/api/verify-payment", {
