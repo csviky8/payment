@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Receipt</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <p class="eyebrow">Payment receipt</p>
+        <h1>Checkout complete</h1>
+        <p id="receipt-text" class="lede">Loading receipt details...</p>
+        <a class="primary" href="/index.html" style="display: inline-block; text-decoration: none;">
+          Back to plans
+        </a>
+      </section>
+    </main>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get("order_id");
+      const paymentId = params.get("payment_id");
+      const receiptId = params.get("receipt");
+      const email = params.get("email");
+      const receiptEl = document.getElementById("receipt-text");
+
+      if (orderId) {
+        localStorage.setItem("pulsepass-order-id", orderId);
+      }
+      if (email) {
+        localStorage.setItem("pulsepass-email", email);
+      }
+
+      if (orderId) {
+        receiptEl.textContent = `Payment verified for order ${orderId}. Payment ${paymentId} is linked to receipt ${receiptId || "n/a"}.`;
+      } else {
+        receiptEl.textContent = "Payment completed. Open the payment status panel to verify the order.";
+      }
+    </script>
+  </body>
+</html>
