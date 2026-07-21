@@ -342,25 +342,6 @@ h3 {
   color: var(--success);
 }
 
-.test-help {
-  display: grid;
-  gap: 0.35rem;
-  margin-top: 1rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid rgba(37, 137, 255, 0.35);
-  border-radius: 18px;
-  background: rgba(37, 137, 255, 0.1);
-  color: #cfe5ff;
-}
-
-.test-help strong {
-  color: #ffffff;
-}
-
-.test-help span {
-  color: var(--muted);
-}
-
 .output {
   grid-column: 1 / -1;
   width: 100%;

@@ -61,11 +61,6 @@ async function checkout(planId) {
     name: "TSVK",
     description: `${payload.plan.name} combo (${payload.plan.rp} RP)`,
     order_id: payload.order_id,
-    prefill: {
-      name: "TSVK Student",
-      email: "student@tsvk.in",
-      contact: "9999999999",
-    },
     theme: {
       color: "#2589ff",
     },
@@ -106,10 +101,7 @@ async function checkout(planId) {
   razorpay.on("payment.failed", (response) => {
     const message =
       response?.error?.description || response?.error?.reason || "Payment failed in Razorpay.";
-    setStatus(
-      `${message} For India test mode, choose UPI and enter success@razorpay.`,
-      "error"
-    );
+    setStatus(`${message} Please try again or use another payment method.`, "error");
     paymentOutput.textContent = JSON.stringify(response, null, 2);
   });
   razorpay.open();

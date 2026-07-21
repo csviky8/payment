@@ -1,6 +1,6 @@
 # TSVK Combo Checkout
 
-This project is a Vercel-ready Razorpay Standard Checkout demo for TSVK learning access.
+This project is a Vercel-ready Razorpay Standard Checkout website for TSVK learning access.
 
 ## Plans
 - Monthly Access: 1 RP, INR 199
@@ -24,7 +24,8 @@ npm start
 Open `http://localhost:3000`.
 
 ## Vercel Environment
-Set these in Vercel before testing live payment:
+Set these in Vercel before accepting payments:
 - `RAZORPAY_KEY_ID`
 - `RAZORPAY_KEY_SECRET`
 
+Use `rzp_live_...` keys for real payments. Use `rzp_test_...` keys only for sandbox testing.
