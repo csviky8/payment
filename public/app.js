@@ -107,7 +107,7 @@ async function checkout(planId) {
     const message =
       response?.error?.description || response?.error?.reason || "Payment failed in Razorpay.";
     setStatus(
-      `${message} In test mode, use card 4111 1111 1111 1111 and choose Success on Razorpay mock bank page.`,
+      `${message} For India test mode, choose UPI and enter success@razorpay.`,
       "error"
     );
     paymentOutput.textContent = JSON.stringify(response, null, 2);
