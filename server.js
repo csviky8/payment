@@ -20,30 +20,30 @@ const razorpay =
 const plans = [
   {
     id: "monthly",
-    name: "Monthly",
+    name: "Monthly Access",
     rp: 1,
     durationLabel: "1 month",
     amountPaise: 19900,
     currency: "INR",
-    description: "A simple starter plan for short access and trial use.",
+    description: "Start with TSVK learning access for one month.",
   },
   {
     id: "quarterly",
-    name: "3-Month",
+    name: "3-Month Access",
     rp: 2,
     durationLabel: "3 months",
     amountPaise: 39900,
     currency: "INR",
-    description: "A better value plan for customers who stay a little longer.",
+    description: "Continue learning with a better value three-month pack.",
   },
   {
     id: "yearly",
-    name: "Yearly",
+    name: "Yearly Access",
     rp: 4,
     durationLabel: "1 year",
     amountPaise: 99900,
     currency: "INR",
-    description: "Best value for long-term members and annual access.",
+    description: "Best value for long-term TSVK learning access.",
   },
 ];
 
@@ -136,7 +136,7 @@ app.post("/api/create-order", async (req, res) => {
       notes: {
         planId: plan ? plan.id : "",
         rp: plan ? String(plan.rp) : "",
-        source: "PulsePass",
+        source: "TSVK",
       },
     });
 

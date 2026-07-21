@@ -3,104 +3,102 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PulsePass Education Payments</title>
+    <title>TSVK Combo Checkout</title>
     <meta
       name="description"
-      content="Simple subscription plans with Razorpay checkout and basic subscription management."
+      content="TSVK combo checkout with Razorpay Standard Checkout."
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="bg-layer bg-one"></div>
-    <div class="bg-layer bg-two"></div>
-
-    <main class="shell">
-      <header class="hero">
+    <main class="checkout-shell">
+      <section class="combo-header">
+        <div class="brand-mark">T</div>
         <div>
-          <p class="eyebrow">Educational payment plans</p>
-          <h1>PulsePass lets learners choose a plan and pay with Razorpay instantly.</h1>
+          <p class="eyebrow">TSVK Learning Access</p>
+          <h1>Combo Package</h1>
           <p class="lede">
-            Choose a plan, sign up, and pay through Razorpay Checkout. The MVP keeps the UX
-            clear while leaving payment logic secure on the server.
+            Choose your TSVK access duration and pay instantly with Razorpay.
+            No signup is required before payment.
           </p>
         </div>
-        <aside class="hero-card">
-          <h2>What RP means</h2>
-          <p>
-            RP stands for <strong>Renewal Pass</strong>. It is an internal entitlement unit
-            used to map plan length to access value.
-          </p>
-          <ul>
-            <li>Monthly: 1 month, 1 RP</li>
-            <li>3-Month: 3 months, 2 RP</li>
-            <li>Yearly: 1 year, 4 RP</li>
-          </ul>
-        </aside>
-      </header>
-
-      <section class="panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Optional</p>
-            <h2>Contact details</h2>
-          </div>
-          <p>Leave this blank if you want. You can still pay directly, and the browser will keep your receipt ID after checkout.</p>
-        </div>
-
-        <form id="signup-form" class="form-grid">
-          <label>
-            Full name
-            <input name="name" type="text" placeholder="Ava Carter" />
-          </label>
-          <label>
-            Email
-            <input name="email" type="email" placeholder="ava@example.com" />
-          </label>
-          <button type="submit" class="primary">Save optional details</button>
-        </form>
-        <p id="signup-status" class="status"></p>
       </section>
 
-      <section class="panel">
-        <div class="section-heading">
+      <section class="combo-card">
+        <div class="combo-card__top">
+          <div class="combo-icon">T</div>
           <div>
-            <p class="eyebrow">Step 2</p>
-            <h2>Choose a plan</h2>
+            <p class="eyebrow">Premium Combo</p>
+            <h2>TSVK LLM Learning Pack</h2>
+            <p class="muted">Structured learning access with one simple checkout.</p>
           </div>
-          <p>Prices are examples in INR and can be replaced with live Razorpay Plan IDs.</p>
+          <div class="price-callout">
+            <span>From</span>
+            <strong>INR 199</strong>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <div>
+            <strong>3</strong>
+            <span>Access Plans</span>
+          </div>
+          <div>
+            <strong>4 RP</strong>
+            <span>Max Value</span>
+          </div>
+          <div>
+            <strong>Instant</strong>
+            <span>Checkout</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Choose Plan</p>
+            <h2>Select your TSVK access</h2>
+          </div>
+          <p>Pick a plan and the Razorpay payment modal will open directly.</p>
         </div>
         <div id="plans" class="plans-grid"></div>
+        <p id="checkout-status" class="status"></p>
       </section>
 
-      <section class="panel flow-panel">
-        <div class="section-heading">
+      <section class="section-block">
+        <div class="section-title">
           <div>
-            <p class="eyebrow">Step 3</p>
-            <h2>Payment status</h2>
+            <p class="eyebrow">Included</p>
+            <h2>What you get</h2>
           </div>
-          <p>Use your email if you entered one, or your saved order ID after guest checkout.</p>
         </div>
-        <div class="flow-grid">
-          <button id="status-button" class="secondary">Check payment status</button>
+        <div class="included-grid">
+          <article>
+            <span>01</span>
+            <h3>TSVK LLM Sessions</h3>
+            <p>Access learning material and guided sessions for the selected duration.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Private Updates</h3>
+            <p>Get access updates and plan confirmation after successful payment.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Verified Payment</h3>
+            <p>Every payment is verified on the backend using Razorpay signature checks.</p>
+          </article>
         </div>
-        <pre id="subscription-output" class="output">No lookup yet.</pre>
       </section>
 
-      <section class="panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">User flow</p>
-            <h2>How the payment journey works</h2>
-          </div>
+      <section class="section-block compact-status">
+        <div>
+          <p class="eyebrow">Receipt</p>
+          <h2>Payment status</h2>
         </div>
-        <ol class="timeline">
-          <li>Visitor lands on the site and reviews plans.</li>
-          <li>User can optionally save name and email, but payment works without it.</li>
-          <li>Frontend asks the backend to create a Razorpay order.</li>
-          <li>Razorpay Checkout collects payment details and returns the payment signature.</li>
-          <li>Backend verifies the signature with the order id and payment id.</li>
-          <li>The success page shows the verified order and payment reference.</li>
-        </ol>
+        <button id="status-button" class="secondary-button">Check last payment</button>
+        <pre id="payment-output" class="output">No payment checked yet.</pre>
       </section>
     </main>
 

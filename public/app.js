@@ -1,26 +1,11 @@
 const plansRoot = document.getElementById("plans");
-const signupForm = document.getElementById("signup-form");
-const signupStatus = document.getElementById("signup-status");
-const subscriptionOutput = document.getElementById("subscription-output");
-
-let activeEmail = localStorage.getItem("pulsepass-email") || "";
-let activeName = localStorage.getItem("pulsepass-name") || "";
+const checkoutStatus = document.getElementById("checkout-status");
+const paymentOutput = document.getElementById("payment-output");
+const statusButton = document.getElementById("status-button");
 
 function setStatus(message, tone = "info") {
-  signupStatus.dataset.tone = tone;
-  signupStatus.textContent = message;
-}
-
-function getSignupData() {
-  if (signupForm) {
-    const data = new FormData(signupForm);
-    return {
-      name: String(data.get("name") || "").trim(),
-      email: String(data.get("email") || "").trim().toLowerCase(),
-    };
-  }
-
-  return { name: activeName, email: activeEmail };
+  checkoutStatus.dataset.tone = tone;
+  checkoutStatus.textContent = message;
 }
 
 async function loadPlans() {
@@ -31,12 +16,16 @@ async function loadPlans() {
     .map(
       (plan) => `
         <article class="plan-card">
-          <div class="plan-badge">${plan.rpLabel}</div>
+          <div class="plan-card__header">
+            <span class="plan-badge">${plan.rpLabel}</span>
+            <span class="plan-duration">${plan.durationLabel}</span>
+          </div>
           <h3>${plan.name}</h3>
-          <p class="plan-duration">${plan.durationLabel}</p>
           <p class="plan-price">${plan.amountLabel}</p>
           <p class="plan-desc">${plan.description}</p>
-          <button class="primary" data-plan="${plan.id}">Pay now</button>
+          <button class="primary-button" data-plan="${plan.id}">
+            Subscribe to Combo - ${plan.amountLabel}
+          </button>
         </article>
       `
     )
@@ -47,38 +36,15 @@ async function loadPlans() {
   });
 }
 
-async function saveSignup(event) {
-  event.preventDefault();
-  const { name, email } = getSignupData();
-
-  if (!name && !email) {
-    setStatus("You can leave this blank and pay directly.", "info");
-    return;
-  }
-
-  if (name) {
-    activeName = name;
-    localStorage.setItem("pulsepass-name", activeName);
-  }
-
-  if (email) {
-    activeEmail = email;
-    localStorage.setItem("pulsepass-email", activeEmail);
-  }
-
-  setStatus("Optional contact details saved in your browser.", "success");
-}
-
 async function checkout(planId) {
-  const { name, email } = getSignupData();
-  setStatus(`Creating Razorpay order for ${planId}...`, "info");
+  setStatus(`Creating TSVK order for ${planId}...`, "info");
 
   const response = await fetch("/api/create-order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       planId,
-      receipt: `pulsepass_${planId}_${Date.now()}`,
+      receipt: `tsvk_${planId}_${Date.now()}`,
     }),
   });
 
@@ -88,27 +54,18 @@ async function checkout(planId) {
     return;
   }
 
-  if (payload.demo) {
-    window.location.href = payload.checkoutUrl;
-    return;
-  }
-
   const options = {
     key: payload.key_id,
     amount: payload.amount,
     currency: payload.currency,
-    name: "PulsePass Education",
-    description: `${payload.plan.name} plan (${payload.plan.rp} RP)`,
+    name: "TSVK",
+    description: `${payload.plan.name} combo (${payload.plan.rp} RP)`,
     order_id: payload.order_id,
-    prefill: {
-      name,
-      email,
-    },
     theme: {
-      color: "#78d6ff",
+      color: "#ffbc06",
     },
     handler: async function (responseData) {
-      const verifyResponse = await fetch("/api/verify-subscription", {
+      const verifyResponse = await fetch("/api/verify-payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -120,17 +77,17 @@ async function checkout(planId) {
 
       const verifyPayload = await verifyResponse.json();
       if (!verifyPayload.ok) {
-        subscriptionOutput.textContent = JSON.stringify(verifyPayload, null, 2);
+        paymentOutput.textContent = JSON.stringify(verifyPayload, null, 2);
         setStatus(verifyPayload.error || "Payment verification failed.", "error");
         return;
       }
 
-      localStorage.setItem("pulsepass-order-id", verifyPayload.order_id || payload.order_id || "");
-      localStorage.setItem("pulsepass-payment-id", verifyPayload.payment_id || "");
+      localStorage.setItem("tsvk-order-id", verifyPayload.order_id || payload.order_id || "");
+      localStorage.setItem("tsvk-payment-id", verifyPayload.payment_id || "");
       window.location.href = `/success.html?order_id=${encodeURIComponent(
         verifyPayload.order_id
       )}&payment_id=${encodeURIComponent(verifyPayload.payment_id)}&receipt=${encodeURIComponent(
-        verifyPayload.receipt || ""
+        verifyPayload.receipt || payload.receipt || ""
       )}`;
     },
     modal: {
@@ -145,35 +102,26 @@ async function checkout(planId) {
     const message =
       response?.error?.description || response?.error?.reason || "Payment failed in Razorpay.";
     setStatus(message, "error");
-    subscriptionOutput.textContent = JSON.stringify(response, null, 2);
+    paymentOutput.textContent = JSON.stringify(response, null, 2);
   });
   razorpay.open();
 }
 
-async function lookupSubscription() {
-  const lastOrderId = localStorage.getItem("pulsepass-order-id") || "";
+async function lookupPayment() {
+  const lastOrderId = localStorage.getItem("tsvk-order-id") || "";
 
-  if (lastOrderId) {
-    const response = await fetch(`/api/payment/${encodeURIComponent(lastOrderId)}`);
-    const payload = await response.json();
-    subscriptionOutput.textContent = JSON.stringify(payload, null, 2);
+  if (!lastOrderId) {
+    paymentOutput.textContent = "No order saved yet. Choose a plan to start payment.";
     return;
   }
 
-  subscriptionOutput.textContent = "No order saved yet. You can still pay without sign-up.";
+  const response = await fetch(`/api/payment/${encodeURIComponent(lastOrderId)}`);
+  const payload = await response.json();
+  paymentOutput.textContent = JSON.stringify(payload, null, 2);
 }
 
-signupForm.addEventListener("submit", saveSignup);
-document.getElementById("status-button").addEventListener("click", lookupSubscription);
-
-if (activeEmail && signupForm) {
-  signupForm.elements.email.value = activeEmail;
-}
-
-if (activeName && signupForm) {
-  signupForm.elements.name.value = activeName;
-}
+statusButton.addEventListener("click", lookupPayment);
 
 loadPlans().catch((error) => {
-  plansRoot.innerHTML = `<p class="status error">Unable to load plans: ${error.message}</p>`;
+  plansRoot.innerHTML = `<p class="status" data-tone="error">Unable to load plans: ${error.message}</p>`;
 });

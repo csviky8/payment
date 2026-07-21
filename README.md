@@ -1,40 +1,30 @@
-# PulsePass Education Payments
+# TSVK Combo Checkout
 
-This project is now Vercel-ready with Razorpay Standard Web Checkout.
+This project is a Vercel-ready Razorpay Standard Checkout demo for TSVK learning access.
 
-## What it does
-- Shows 3 educational payment plans:
-  - Monthly: 1 RP
-  - 3-Month: 2 RP
-  - Yearly: 4 RP
-- Creates a Razorpay order on the backend
-- Opens Razorpay Checkout from the frontend
-- Verifies the payment signature on the backend
+## Plans
+- Monthly Access: 1 RP, INR 199
+- 3-Month Access: 2 RP, INR 399
+- Yearly Access: 4 RP, INR 999
 
-## Local demo
-1. Run `npm install`
-2. Keep the local `.env` file with your Razorpay test keys
-3. Run `npm start`
-4. Open `http://localhost:3000`
+## Flow
+1. User opens the TSVK combo checkout page.
+2. User chooses a plan without signup.
+3. Frontend calls `POST /api/create-order`.
+4. Razorpay Checkout opens with the returned order id.
+5. Frontend sends payment id, order id, and signature to `POST /api/verify-payment`.
+6. Backend verifies the signature with Razorpay key secret.
 
-## Vercel demo deploy
-1. Install the Vercel CLI if needed: `npm i -g vercel`
-2. Log in: `vercel login`
-3. From the project root, run `vercel`
-4. In the Vercel dashboard, add these environment variables:
-   - `RAZORPAY_KEY_ID`
-   - `RAZORPAY_KEY_SECRET`
-5. Deploy to production when ready: `vercel --prod`
+## Local Run
+```powershell
+npm install
+npm start
+```
 
-## API routes on Vercel
-- `GET /api/plans`
-- `GET /api/config`
-- `POST /api/create-order`
-- `POST /api/verify-payment`
-- `GET /api/payment/:orderId`
+Open `http://localhost:3000`.
 
-## Notes
-- The browser only receives the public Razorpay key ID.
-- The secret key stays in environment variables on the server.
-- `api/payment/:orderId` is a demo lookup route unless you connect a database or KV store.
+## Vercel Environment
+Set these in Vercel before testing live payment:
+- `RAZORPAY_KEY_ID`
+- `RAZORPAY_KEY_SECRET`
 

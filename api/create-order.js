@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
       notes: {
         planId: plan ? plan.id : "",
         rp: plan ? String(plan.rp) : "",
-        source: "PulsePass",
+        source: "TSVK",
       },
     });
 
