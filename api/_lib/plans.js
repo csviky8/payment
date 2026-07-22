@@ -1,30 +1,30 @@
 const plans = [
   {
     id: "monthly",
-    name: "Monthly Access",
+    name: "Monthly Access **LLW EQUITY - INTRADAY , SWING & LONG TERM**",
     rp: 1,
     durationLabel: "1 month",
     amountPaise: 50000,
     currency: "INR",
-    description: "Start with TSVK learning access for one month.",
+    description: "Start with TSVK INTRADAY access for one month.",
   },
   {
     id: "quarterly",
-    name: "3-Month Access",
+    name: "3-Month Access **LLW EQUITY - INTRADAY , SWING & LONG TERM**",
     rp: 2,
     durationLabel: "3 months",
     amountPaise: 199900,
     currency: "INR",
-    description: "Continue learning with a better value three-month pack.",
+    description: "Continue INTRADAY with a better value three-month pack.",
   },
   {
     id: "yearly",
-    name: "Yearly Access",
+    name: "Yearly Access **LLW EQUITY - INTRADAY , SWING & LONG TERM**",
     rp: 4,
     durationLabel: "1 year",
     amountPaise: 399900,
     currency: "INR",
-    description: "Best value for long-term TSVK learning access.",
+    description: "Best value for long-term TSVK INTRADAY access.",
   },
 ];
 
